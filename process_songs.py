@@ -36,7 +36,7 @@ model = "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B"
 base_url = "https://api.openai.com/v1/"
 model = "gpt-4o-mini"
 with open("token", 'r') as file:
-    token = file.read()
+    token = file.read().strip()
 
 # DeepSeek
 #base_url = "https://api.deepseek.com"
@@ -47,6 +47,8 @@ headers = {
     "Content-Type": "application/json",
     "Authorization": f"Bearer {token}"
 }
+
+print(headers)
 
 def process_songs(selected_books, topic, receiver_email):
     # load song texts
