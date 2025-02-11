@@ -1,1 +1,1 @@
-python3 -m uvicorn process_songs:app --host 0.0.0.0 --port 443  --ssl-keyfile /etc/letsencrypt/live/liedauswahl.duckdns.org/privkey.pem --ssl-certfile  /etc/letsencrypt/live/liedauswahl.duckdns.org/fullchain.pem
+python3 -m uvicorn process_songs:app --host 0.0.0.0 --port 8443  --ssl-keyfile /etc/letsencrypt/live/liedauswahl.duckdns.org/privkey.pem --ssl-certfile  /etc/letsencrypt/live/liedauswahl.duckdns.org/fullchain.pem

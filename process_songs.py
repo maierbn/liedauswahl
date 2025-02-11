@@ -4,6 +4,7 @@ from concurrent.futures import ThreadPoolExecutor
 from fastapi import FastAPI, BackgroundTasks, HTTPException
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
+import time
 
 app = FastAPI()
 
@@ -108,6 +109,9 @@ def process_songs(selected_books, topic, receiver_email):
         result_json = response.json()
 
         if 'error' in result_json:
+            if "Rate limit reached" in result_json['error']['message']:
+                time.sleep(10)
+                return get_score(row, topic)
             raise RuntimeError(result_json['error']['message'])
         result_message = result_json['choices'][0]['message']['content']
 
@@ -174,6 +178,10 @@ def process_songs(selected_books, topic, receiver_email):
         }
         response = requests.post(url, headers=headers, json=data)
         result_json = response.json()
+        if 'error' in result_json:
+            if "Rate limit reached" in result_json['error']['message']:
+                time.sleep(10)
+                return is_1_better(row1, row2, topic)
         result_message = result_json['choices'][0]['message']['content']
         
         #with open(f"outputs/compare_{row1['title']}_{row2['title']}.txt", "w") as file:
@@ -395,6 +403,8 @@ async def process_songs_endpoint(request: SongRequest, background_tasks: Backgro
         try:
             process_songs(selected_books, topic, receiver_email)
         except Exception as e:
+            import traceback
+            traceback.print_exc()
             print(f"Error during song processing: {e}")
     
     # Add the background task to be executed after the response is sent
