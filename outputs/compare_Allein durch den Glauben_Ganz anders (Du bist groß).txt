@@ -1,0 +1,12 @@
+Welches der beiden folgenden Lieder passt besser zum Thema des Gottesdienstes? Antworte mit [1] oder [2].
+        Deine Antwort soll NUR aus dem string "[1]" oder "[2]" bestehen, ohne Erklärung.
+        Thema des Gottesdienstes: "Jesus Christus nachfolgen heißt aushalten, dass bei Gott andere Maßstäbe von Gerechtigkeit, von Ruhm und Ehre gelten als in der Welt. Nicht die eigene Leistung zählt, sondern Gottes Gnade."
+        Lied [1]: Titel: "Allein durch den Glauben", Liedtext: Allein durch den Glauben, | die Gnade, dein Wort, | allein durch dich, Jesus, | fand ich an den Ort, | an dem ich Zuhaus bin, | erlöst und geliebt, | ich kann es kaum fassen, | dass es so etwas für  mich gibt. Glauben heißt auf deine Worte zu vertraun, | anstatt auf meine Leistung | nur auf dich zu schaun. | Du nahmst meine Schuld, | so hast du mich befreit, | und das gilt für alle Zeit. Dein Wort schließt mir | täglich neue Türen auf, | zeigt mir meinen Weg, | zieht mich zu dir hinauf. | Durch dieses Wort | kann ich hören und sehn, | dich, meinen Gott, | neu verstehn. Gnade breitest du | wie einen Teppich aus, | führst mich aus der Dunkelheit | zu dir nach Haus. | Vollkommen gerecht | darf ich nun bei dir sein, | ich bin für immer dein.
+
+
+        Lied [2]: Titel: "Ganz anders (Du bist groß)", Liedtext: Gott, du bist anders. Jesus, du bist anders. | Ganz anders, als wir dich oft sehn. | Du setzt dich zu Schwachen und Kranken, | lässt Stolze und Mächtige stehn. | Du sagst, dass die Großen auf Erden | am Ende die Machtlosen sind. | Dass wir erst zu Nachfolgern werden, | wenn wir so vertraun wie ein Kind. | Ja, wenn wir vertraun wie ein Kind. Du bist groß, weil du klein geworden bist. | Gott, der Herr, der selbst Kind geworden ist, | kam uns nah, weil der Vater uns vermisst, | weil der Gott des Universums | seine heiß geliebten Kinder nicht vergisst. Jesus, du bist anders. | Du sprengst unsre Vorstellungskraft. | Du herrschst über himmlische Welten | und steigst doch vom Himmel herab. | Du suchst nicht den eigenen Vorteil, | du gehst selbst den untersten Weg. | Verzichtest auf all deine Rechte | und darum behältst du den Sieg. | Ja, darum behältst du den Sieg.
+        
+
+----------------
+
+[2]

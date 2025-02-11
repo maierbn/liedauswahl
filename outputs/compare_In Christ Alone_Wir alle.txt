@@ -1,0 +1,12 @@
+Welches der beiden folgenden Lieder passt besser zum Thema des Gottesdienstes? Antworte mit [1] oder [2].
+        Deine Antwort soll NUR aus dem string "[1]" oder "[2]" bestehen, ohne Erklärung.
+        Thema des Gottesdienstes: "Jesus Christus nachfolgen heißt aushalten, dass bei Gott andere Maßstäbe von Gerechtigkeit, von Ruhm und Ehre gelten als in der Welt. Nicht die eigene Leistung zählt, sondern Gottes Gnade."
+        Lied [1]: Titel: "In Christ Alone", Liedtext: In Christ alone will I glory | Though I could pride myself in battles won | For I've been blessed beyond measure | And by His strength alone I overcome | Oh I could stop and count successes | Like diamonds in my hand | But those trophies could not equal | To the grace by which I stand In Christ alone I place my trust | And find my glory in the power of the cross | In ev'ry victory let it be said of me | My source of strength my source of hope | Is Christ alone In Christ alone will I glory | For only by His grace I am redeemed | Only His tender mercy | Could reach beyond my weakness to my need | Now I seek no greater honor | Than just to know Him more | And to count my gains but losses | To the glory of my Lord My source of strength my source of hope | Is Christ alone
+
+
+        Lied [2]: Titel: "Wir alle", Liedtext: Ich bin nicht Richter über den Glauben, | mir steht kein Urteil über dich zu. | Ich seh die Splitter in deinen Augen, | doch meine Balken siehst vielleicht du. |  | Vom nahen Osten kommt nicht nur Schrecken, | der arme Süden ist doch auch reich. | Ich schätze Weisheit aus allen Völkern, | wir sind verschieden und doch so gleich. Die Sonne scheint über uns alle, | der Regen lässt keinen aus. Ich wünsche nur jedem, | den Retter zu kennen | und Gott nicht nur Herr, | sondern Vater zu nennen. | Wer glaubt, dass er steht, | sehe, dass er nicht falle. | Vergebung und Gnade | brauchen wir alle. Es gab viel Unrecht in Gottes Namen, | die frohe Botschaft wurde verkehrt. | Und die im Zeichen des Kreuzes kamen, | waren im Herzen oft selbst nicht bekehrt. |  | Ich könnte weinen, dass Macht und Missbrauch | sich mit der Botschaft der Liebe vermischt. | Doch Gottes Reich hat andere Grenzen, | er sieht die Herzen, nicht was vor Augen ist.
+        
+
+----------------
+
+[1]

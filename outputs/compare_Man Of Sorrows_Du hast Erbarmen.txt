@@ -1,0 +1,12 @@
+Welches der beiden folgenden Lieder passt besser zum Thema des Gottesdienstes? Antworte mit [1] oder [2].
+        Deine Antwort soll NUR aus dem string "[1]" oder "[2]" bestehen, ohne Erklärung.
+        Thema des Gottesdienstes: "Jesus Christus nachfolgen heißt aushalten, dass bei Gott andere Maßstäbe von Gerechtigkeit, von Ruhm und Ehre gelten als in der Welt. Nicht die eigene Leistung zählt, sondern Gottes Gnade."
+        Lied [1]: Titel: "Man Of Sorrows", Liedtext: Man of sorrows Lamb of God | By His own betrayed | The sin of man and wrath of God | Has been on Jesus laid Silent as He stood accused | Beaten mocked and scorned | Bowing to the Father's will | He took a crown of thorns Oh that rugged cross my salvation | Where Your love poured out over me | Now my soul cries out hallelujah | Praise and honour unto Thee Sent of heaven God's own Son | To purchase and redeem | And reconcile the very ones | Who nailed Him to that tree Now my debt is paid | It is paid in full | By the precious blood | That my Jesus spilled | Now the curse of sin | Has no hold on me | Whom the Son sets free | Oh is free indeed See the stone is rolled away | Behold the empty tomb | Hallelujah God be praised | He's risen from the grave
+
+
+        Lied [2]: Titel: "Du hast Erbarmen", Liedtext: Du hast Erbarmen und zertrittst all meine Schuld. | Du hilfst mir auf in deiner Treue und Geduld. | Du nimmst mir meine Last, | nichts ist für dich zu schwer. | Du wirfst all meine Sünden tief hinab ins Meer. Wer ist ein Gott wie du, | der die Sünde verzeiht und das Unrecht vergibt? | Wer ist ein Gott wie du, | nicht für immer bleibt dein Zorn bestehn, | denn du liebst es, gnädig zu sein.
+        
+
+----------------
+
+[1]

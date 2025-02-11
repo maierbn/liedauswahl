@@ -1,0 +1,12 @@
+Welches der beiden folgenden Lieder passt besser zum Thema des Gottesdienstes? Antworte mit [1] oder [2].
+        Deine Antwort soll NUR aus dem string "[1]" oder "[2]" bestehen, ohne Erklärung.
+        Thema des Gottesdienstes: "Jesus Christus nachfolgen heißt aushalten, dass bei Gott andere Maßstäbe von Gerechtigkeit, von Ruhm und Ehre gelten als in der Welt. Nicht die eigene Leistung zählt, sondern Gottes Gnade."
+        Lied [1]: Titel: "Allein durch den Glauben", Liedtext: Allein durch den Glauben, | die Gnade, dein Wort, | allein durch dich, Jesus, | fand ich an den Ort, | an dem ich Zuhaus bin, | erlöst und geliebt, | ich kann es kaum fassen, | dass es so etwas für  mich gibt. Glauben heißt auf deine Worte zu vertraun, | anstatt auf meine Leistung | nur auf dich zu schaun. | Du nahmst meine Schuld, | so hast du mich befreit, | und das gilt für alle Zeit. Dein Wort schließt mir | täglich neue Türen auf, | zeigt mir meinen Weg, | zieht mich zu dir hinauf. | Durch dieses Wort | kann ich hören und sehn, | dich, meinen Gott, | neu verstehn. Gnade breitest du | wie einen Teppich aus, | führst mich aus der Dunkelheit | zu dir nach Haus. | Vollkommen gerecht | darf ich nun bei dir sein, | ich bin für immer dein.
+
+
+        Lied [2]: Titel: "In Christ Alone", Liedtext: In Christ alone will I glory | Though I could pride myself in battles won | For I've been blessed beyond measure | And by His strength alone I overcome | Oh I could stop and count successes | Like diamonds in my hand | But those trophies could not equal | To the grace by which I stand In Christ alone I place my trust | And find my glory in the power of the cross | In ev'ry victory let it be said of me | My source of strength my source of hope | Is Christ alone In Christ alone will I glory | For only by His grace I am redeemed | Only His tender mercy | Could reach beyond my weakness to my need | Now I seek no greater honor | Than just to know Him more | And to count my gains but losses | To the glory of my Lord My source of strength my source of hope | Is Christ alone
+        
+
+----------------
+
+[1]

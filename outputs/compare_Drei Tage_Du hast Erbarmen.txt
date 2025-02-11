@@ -1,0 +1,12 @@
+Welches der beiden folgenden Lieder passt besser zum Thema des Gottesdienstes? Antworte mit [1] oder [2].
+        Deine Antwort soll NUR aus dem string "[1]" oder "[2]" bestehen, ohne Erklärung.
+        Thema des Gottesdienstes: "Jesus Christus nachfolgen heißt aushalten, dass bei Gott andere Maßstäbe von Gerechtigkeit, von Ruhm und Ehre gelten als in der Welt. Nicht die eigene Leistung zählt, sondern Gottes Gnade."
+        Lied [1]: Titel: "Drei Tage", Liedtext: Gott von Gott verlassen, | einsam mit dem Tod, | die Welt verliert das Gleichgewicht. | Kampf der Dimensionen, | unsichtbare Macht, | ein Gott, dem es das Herz zerbricht. Als Verlierer hängt er dort am Kreuz. | Ein Mann stirbt für Gerechtigkeit. Drei Tage, die die Welt verändert haben. | Drei Tage für Unendlichkeit. | Drei Tage haben alle Schuld begraben. | Drei Tage für Unsterblichkeit. Gott, ein Mensch geworden, | Liebe in Gestalt, | die unfassbare Wirklichkeit. | Sie kennt keine Grenzen, | Mauern brechen ein, | ein Gott, der uns von Schuld befreit. Als Erlöser tritt er aus dem Grab. | Ein Mann steht für Gerechtigkeit. Sein Sterben heißt: | Leben in Ewigkeit.
+
+
+        Lied [2]: Titel: "Du hast Erbarmen", Liedtext: Du hast Erbarmen und zertrittst all meine Schuld. | Du hilfst mir auf in deiner Treue und Geduld. | Du nimmst mir meine Last, | nichts ist für dich zu schwer. | Du wirfst all meine Sünden tief hinab ins Meer. Wer ist ein Gott wie du, | der die Sünde verzeiht und das Unrecht vergibt? | Wer ist ein Gott wie du, | nicht für immer bleibt dein Zorn bestehn, | denn du liebst es, gnädig zu sein.
+        
+
+----------------
+
+[1]

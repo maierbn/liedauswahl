@@ -1,0 +1,12 @@
+Welches der beiden folgenden Lieder passt besser zum Thema des Gottesdienstes? Antworte mit [1] oder [2].
+        Deine Antwort soll NUR aus dem string "[1]" oder "[2]" bestehen, ohne Erklärung.
+        Thema des Gottesdienstes: "Jesus Christus nachfolgen heißt aushalten, dass bei Gott andere Maßstäbe von Gerechtigkeit, von Ruhm und Ehre gelten als in der Welt. Nicht die eigene Leistung zählt, sondern Gottes Gnade."
+        Lied [1]: Titel: "Meine Seele preist die Größe des Herrn", Liedtext: Meine Seele preist die Größe des Herrn, | es jubelt mein Geist über Gott, meinen Retter. | Meine Niedrigkeit hat er angesehn, | für alle Zeit preisen mich | selig alle Geschlechter. Gott hat Großes an mir getan | und sein Name ist heilig. | Sein Erbarmen hört niemals auf, | es gilt allen, die ihn fürchten. Er hebt seinen Arm, fegt die Mächtigen fort, | stürzt die Stolzen vom Thron, | richtet auf die Unterdrückten. | Er macht Hungernde satt, schickt die Reichen fort. | Er denkt an sein Volk, so wie er es verheißen.
+
+
+        Lied [2]: Titel: "Jesus zu dir kann ich so kommen", Liedtext: Jesus, zu dir kann ich so kommen, wie ich bin. | Du hast gesagt, dass jeder kommen darf. | Ich muss dir nicht erst beweisen, | dass ich besser werden kann. | Was mich besser macht vor dir, | das hast du längst am Kreuz getan. Und weil du mein Zögern siehst, | streckst du mir deine Hände hin, | und ich kann so zu dir kommen, wie ich bin. Jesus, bei dir darf ich mich geben, wie ich bin. | Ich muss nicht mehr als ehrlich sein vor dir. | Ich muss nichts vor dir verbergen, | der mich schon so lange kennt. | Du siehst, was mich zu dir zieht, | und auch, was mich von dir noch trennt. Und so leg ich Licht und Schatten | meines Lebens vor dich hin, | denn bei dir darf ich mich geben, wie ich bin. Jesus, bei dir muss ich nicht bleiben, wie ich bin. | Nimm fort, was mich und andere zerstört. | Einen Menschen willst du aus mir machen, | wie er dir gefällt, | der ein Brief von deiner Hand ist, | voller Liebe für die Welt. Du hast schon seit langer Zeit | mit mir das Beste nur im Sinn. | Darum muss ich nicht so bleiben, wie ich bin.
+        
+
+----------------
+
+[1]

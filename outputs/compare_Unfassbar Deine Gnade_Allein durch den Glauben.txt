@@ -1,0 +1,12 @@
+Welches der beiden folgenden Lieder passt besser zum Thema des Gottesdienstes? Antworte mit [1] oder [2].
+        Deine Antwort soll NUR aus dem string "[1]" oder "[2]" bestehen, ohne Erklärung.
+        Thema des Gottesdienstes: "Jesus Christus nachfolgen heißt aushalten, dass bei Gott andere Maßstäbe von Gerechtigkeit, von Ruhm und Ehre gelten als in der Welt. Nicht die eigene Leistung zählt, sondern Gottes Gnade."
+        Lied [1]: Titel: "Unfassbar Deine Gnade", Liedtext: Wer bricht die Kraft von sünde und Dunkel? | Welch Liebe ist so mächtig und stärker? | Der starke König König der Könige Wer lässt die Erde zittern mit Donner? | Wer lässt uns staunen so voller Ehrfurcht | Du starker König König der Könige Unfassbar Deine Gnade | unendlich Deine Liebe | Du littst für mich am Kreuz | Den Tod ertrugst du dort | Du gabst Dein Leben hin | damit ich nun frei bin | Jesus ich preis' dich für mich hast Du's getan All unser Chaos bringst Du in Ordnung | Du machst die Waisen zu Sohn und Tochter | Du starker König König der Könige Wer regiert Staaten in Recht und Wahrheit | scheint wie die Sonne in aller Klarheit? | Du starker König König der Könige Würdig ist das Lamm das starb | würdig ist mein Gott der den Tod besiegt
+
+
+        Lied [2]: Titel: "Allein durch den Glauben", Liedtext: Allein durch den Glauben, | die Gnade, dein Wort, | allein durch dich, Jesus, | fand ich an den Ort, | an dem ich Zuhaus bin, | erlöst und geliebt, | ich kann es kaum fassen, | dass es so etwas für  mich gibt. Glauben heißt auf deine Worte zu vertraun, | anstatt auf meine Leistung | nur auf dich zu schaun. | Du nahmst meine Schuld, | so hast du mich befreit, | und das gilt für alle Zeit. Dein Wort schließt mir | täglich neue Türen auf, | zeigt mir meinen Weg, | zieht mich zu dir hinauf. | Durch dieses Wort | kann ich hören und sehn, | dich, meinen Gott, | neu verstehn. Gnade breitest du | wie einen Teppich aus, | führst mich aus der Dunkelheit | zu dir nach Haus. | Vollkommen gerecht | darf ich nun bei dir sein, | ich bin für immer dein.
+        
+
+----------------
+
+[1]

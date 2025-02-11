@@ -1,0 +1,12 @@
+Welches der beiden folgenden Lieder passt besser zum Thema des Gottesdienstes? Antworte mit [1] oder [2].
+        Deine Antwort soll NUR aus dem string "[1]" oder "[2]" bestehen, ohne Erklärung.
+        Thema des Gottesdienstes: "Jesus Christus nachfolgen heißt aushalten, dass bei Gott andere Maßstäbe von Gerechtigkeit, von Ruhm und Ehre gelten als in der Welt. Nicht die eigene Leistung zählt, sondern Gottes Gnade."
+        Lied [1]: Titel: "In Christ Alone", Liedtext: In Christ alone will I glory | Though I could pride myself in battles won | For I've been blessed beyond measure | And by His strength alone I overcome | Oh I could stop and count successes | Like diamonds in my hand | But those trophies could not equal | To the grace by which I stand In Christ alone I place my trust | And find my glory in the power of the cross | In ev'ry victory let it be said of me | My source of strength my source of hope | Is Christ alone In Christ alone will I glory | For only by His grace I am redeemed | Only His tender mercy | Could reach beyond my weakness to my need | Now I seek no greater honor | Than just to know Him more | And to count my gains but losses | To the glory of my Lord My source of strength my source of hope | Is Christ alone
+
+
+        Lied [2]: Titel: "Du hast Erbarmen", Liedtext: Du hast Erbarmen und zertrittst all meine Schuld. | Du hilfst mir auf in deiner Treue und Geduld. | Du nimmst mir meine Last, | nichts ist für dich zu schwer. | Du wirfst all meine Sünden tief hinab ins Meer. Wer ist ein Gott wie du, | der die Sünde verzeiht und das Unrecht vergibt? | Wer ist ein Gott wie du, | nicht für immer bleibt dein Zorn bestehn, | denn du liebst es, gnädig zu sein.
+        
+
+----------------
+
+[1]
