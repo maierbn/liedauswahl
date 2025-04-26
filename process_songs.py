@@ -7,7 +7,33 @@ from fastapi.middleware.cors import CORSMiddleware
 import time
 import datetime
 
+import asyncio
+from typing import List, Callable
+import psutil
+
+# define task queue
+task_queue: asyncio.Queue = asyncio.Queue()
+
+
+async def task_worker():
+    while True:
+        func = await task_queue.get()
+        try:
+            await func()
+        except Exception as e:
+            import traceback
+            traceback.print_exc()
+            print(f"Error during task execution: {e}")
+        finally:
+            task_queue.task_done()
+
 app = FastAPI()
+
+
+@app.on_event("startup")
+async def startup_event():
+    asyncio.create_task(task_worker())
+
 
 # Add CORS middleware
 app.add_middleware(
@@ -50,7 +76,7 @@ headers = {
     "Authorization": f"Bearer {token}"
 }
 
-print(headers)
+print(f"\n\nStarting Backend")
 
 def process_songs(selected_books, topic, receiver_email):
     # load song texts
@@ -393,38 +419,39 @@ def process_songs(selected_books, topic, receiver_email):
 
     # Create filename with current datetime
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    topic_shortened = topic.replace("\n", "").replace("\r", "").replace("\t", "_").replace(" ", "_").replace(".", "_")
+    topic_shortened = topic.replace("\n", "").replace("\\","").replace("/", "").replace("\r", "").replace("\t", "_").replace(" ", "_").replace(".", "_")
     topic_shortened = topic_shortened[0:min(50,len(topic_shortened))]
     filename = f"logs/{timestamp}_{topic_shortened}.html"
 
     # Write to the HTML file
     with open(filename, "w", encoding="utf-8") as f:
-        f.write(f"<p>Receiver: {receiver_email}</p>\n")
-        f.write(html_output)
+        f.write(html_output.replace("<body>", "<body><p>Receiver: {receiver_email}</p>\n"))
 
     # Return the sorted DataFrame as a dictionary
     return df_sorted.to_dict(orient="records")
 
 @app.post("/process_songs")
-async def process_songs_endpoint(request: SongRequest, background_tasks: BackgroundTasks):
+async def process_songs_endpoint(request: SongRequest):
     selected_books = request.selected_books
     topic = request.topic
     receiver_email = request.receiver_email
     
     # Define a function to run in the background
-    def background_process():
-        try:
-            process_songs(selected_books, topic, receiver_email)
-        except Exception as e:
-            import traceback
-            traceback.print_exc()
-            print(f"Error during song processing: {e}")
-    
-    # Add the background task to be executed after the response is sent
-    background_tasks.add_task(background_process)
-    
+    async def background_process():
+        loop = asyncio.get_running_loop()
+        await loop.run_in_executor(None, process_songs, selected_books, topic, receiver_email)
+   
+    await task_queue.put(background_process)
+
+    n_pending_tasks = task_queue.qsize()
+
     # Return a response immediately
-    return {"status": "success", "message": f"Der Vorgang wurde gestartet. In ein paar Minuten wird das Ergebnis an {receiver_email} geschickt."}
+    result = {
+        "status": "success",
+        "message": f"Der Vorgang wurde gestartet, Platz {n_pending_tasks} in der Warteschlange. In ein paar Minuten wird das Ergebnis an `{receiver_email}` geschickt."
+    }
+    print(result["message"])
+    return result
 
 @app.get("/")
 async def test_endpoint():
@@ -434,3 +461,19 @@ async def test_endpoint():
 @app.post("/test")
 async def test_endpoint():
     return {"message": "API is reachable"}
+
+
+@app.get("/server_status")
+async def server_status():
+    # Memory usage
+    memory_info = psutil.virtual_memory()
+    memory_used_gb = (memory_info.total - memory_info.available) / (1024 ** 3)
+
+    # Queue length
+    n_pending_tasks = task_queue.qsize()
+
+    # Build message
+    anfragen = "Anfrage" if n_pending_tasks == 1 else "Anfragen"
+    message = f"(Warteschlange: {n_pending_tasks} {anfragen}, aktuelle Speicherauslastung: {memory_used_gb:.2f} von 1 GB)"
+    return {"message": message}
+
