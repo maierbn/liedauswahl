@@ -78,7 +78,7 @@ def process_songs(selected_books, topic, receiver_email):
             if i != 0:
                 location += "; "
             
-            location += f"{other_row['book'].replace('Feiert Jesus ', 'FJ').replace('Best Of', 'B')}, Nr.{other_row['number']}"
+            location += f"{other_row['book'].replace('Feiert Jesus ', 'FJ').replace('Best Of', 'B')} {other_row['number']}"
         df_songs.loc[index, 'location'] = location
 
     df_songs = df_songs.drop_duplicates(subset="title")
