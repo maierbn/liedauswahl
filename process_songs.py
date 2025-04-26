@@ -5,6 +5,7 @@ from fastapi import FastAPI, BackgroundTasks, HTTPException
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 import time
+import datetime
 
 app = FastAPI()
 
@@ -53,6 +54,7 @@ print(headers)
 
 def process_songs(selected_books, topic, receiver_email):
     # load song texts
+    print(f"New request: topic={topic}, receiver_email={receiver_email}, selected_books={selected_books}\n")
 
     import numpy as np
     import pandas as pd
@@ -62,7 +64,7 @@ def process_songs(selected_books, topic, receiver_email):
     import json
 
     # Create a DataFrame from the extracted data
-    df_songs = pd.read_parquet("songs.parquet")
+    df_songs = pd.read_parquet("songs_with_eg.parquet")
 
     # filter
     df_songs = df_songs[df_songs.book.isin(selected_books)]
@@ -124,8 +126,8 @@ def process_songs(selected_books, topic, receiver_email):
             p = result_message.find("score=") + len("score=")
             score = float("".join([s for s in result_message[p:p+10] if s in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."]]))
         
-        if score > 0.8:
-            print(f"{score}: \"{row['title']}\", {row['book']}, S.{row['number']}")
+        #if score > 0.8:
+        #    print(f"{score}: \"{row['title']}\", {row['book']}, S.{row['number']}")
 
         return score
 
@@ -142,7 +144,7 @@ def process_songs(selected_books, topic, receiver_email):
     df_scores = pd.DataFrame(results, columns=['title', 'location', 'lyrics', 'score'])
 
     df_scores = df_scores.sort_values("score", ascending=False)
-    print(df_scores)
+    #print(df_scores)
     threshold = 0.9
     df_selected = df_scores[df_scores.score>=threshold]
 
@@ -388,6 +390,17 @@ def process_songs(selected_books, topic, receiver_email):
 
     send_mail(receiver_email, html_content=html_output)
     print(f"sent mail to {receiver_email}.")
+
+    # Create filename with current datetime
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    topic_shortened = topic.replace("\n", "").replace("\r", "").replace("\t", "_").replace(" ", "_").replace(".", "_")
+    topic_shortened = topic_shortened[0:min(50,len(topic_shortened))]
+    filename = f"logs/{timestamp}_{topic_shortened}.html"
+
+    # Write to the HTML file
+    with open(filename, "w", encoding="utf-8") as f:
+        f.write(f"<p>Receiver: {receiver_email}</p>\n")
+        f.write(html_output)
 
     # Return the sorted DataFrame as a dictionary
     return df_sorted.to_dict(orient="records")
