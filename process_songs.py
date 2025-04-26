@@ -112,9 +112,9 @@ def process_songs(selected_books, topic, receiver_email):
     df_songs = df_songs.drop_duplicates(subset="title")
     print(f"total number of songs: {len(df_songs)}")
 
-    if len(df_songs) > 500:
-        print(f"sample 500")
-        df_songs = df_songs.sample(n=500)
+    if len(df_songs) > 550:
+        print(f"sample 550")
+        df_songs = df_songs.sample(n=550)
 
     def get_score(row, topic):
         topic = topic.replace("\"", "")
