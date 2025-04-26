@@ -47,3 +47,7 @@ Bei Problemen oder Fragen wendet euch direkt an [mich](mailto:maierbn+musikteam@
 
 **Viel Freude beim Singen und Musizieren!** 🎶
 
+## Technical information
+
+- The main script is `process_songs.py`, to be started by running `. start.sh`. It runs a FastAPI server that publishes endpoints `/process_songs` and `/server_status`.
+- The `gpt-4o-mini` model is used. The required API token needs to be stored in a file `token` in the same directory as where `start.sh` is called.
