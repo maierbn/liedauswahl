@@ -1,0 +1,102 @@
+<form id="songForm">
+    <div class="form-group">
+      <label for="books" style="font-weight:bold">Berücksichtigte Bücher</label>
+      (Auswahl mehrerer Bücher durch Shift-Taste drücken und klicken.)
+      <select id="books" multiple required size="7" style="max-height: 230px !important; height: 230px;">
+        <option value="Feiert Jesus 2">Feiert Jesus 2</option>
+        <option value="Feiert Jesus 3">Feiert Jesus 3</option>
+        <option value="Feiert Jesus 4" selected="selected">Feiert Jesus 4</option>
+        <option value="Feiert Jesus 5" selected="selected">Feiert Jesus 5</option>
+        <option value="Feiert Jesus 6">Feiert Jesus 6</option>
+        <option value="Feiert Jesus Best Of" selected="selected">Feiert Jesus Best Of</option>
+        <option value="EG">Evangelisches Gesangbuch (EG)</option>
+      </select>
+    </div>
+    <br>
+
+    <div class="form-group">
+      <label for="topic" style="font-weight:bold">Thema:</label>
+      <textarea id="topic" rows="4" required placeholder="Hier ein Thema eingeben, entweder Stichpunkte oder ein kurzer Text..."></textarea>
+    </div>
+    <br>
+
+    <div class="form-group">
+      <label for="email">E-Mail-Adresse zur Zusendung der Liste:</label>
+      <input type="email" id="email" required placeholder="E-Mail-Adresse" />
+    </div>
+    <br>
+
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 1em;">
+        <button type="submit">Abschicken</button>
+        <div id="server_status" style="text-align: right; flex: 1; margin-left: 1em;"></div>
+        <button type="button" id="refresh_status" style="margin-left: 1em;">Status Aktualisieren</button>
+    </div>
+</form>
+
+<div id="response"></div><script>
+  async function updateServerStatusClear() {
+    document.getElementById('response').innerText = '';
+    updateServerStatus();
+  }
+  async function updateServerStatus() {
+    try {
+      const response = await fetch('https://liedauswahl.duckdns.org:8443/server_status');
+      const result = await response.json();
+      if (response.ok) {
+        document.getElementById('server_status').innerText = result.message;
+      } else {
+        document.getElementById('server_status').innerText = 'Fehler beim Laden des Serverstatus.';
+      }
+    } catch (error) {
+      console.error("Server status fetch error:", error);
+      document.getElementById('server_status').innerText = 'Fehler beim Laden des Serverstatus.';
+    }
+  }
+
+  document.getElementById('songForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+
+    // Hide the submit button after it's clicked
+    document.querySelector('button[type="submit"]').style.display = 'none';
+
+    const selectedBooks = Array.from(document.getElementById('books').selectedOptions).map(option => option.value);
+    const topic = document.getElementById('topic').value;
+    const receiverEmail = document.getElementById('email').value;
+
+    const payload = {
+      selected_books: selectedBooks,
+      topic: topic,
+      receiver_email: receiverEmail
+    };
+    
+    try {
+      document.getElementById('response').innerText = '';
+      const response = await fetch('https://liedauswahl.duckdns.org:8443/process_songs', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        document.getElementById('response').innerText = `Erfolgreich abgeschickt: ${result.message}`;
+      } else {
+        document.getElementById('response').innerText = `Fehler: ${result.detail || 'Unbekannter Fehler.'}`;
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+      document.getElementById('response').innerText = `Fehler: ${error.message}`;
+    } finally {
+      await updateServerStatus(); // refresh server status after submitting
+    }
+  });
+
+  // Update status when clicking "Aktualisieren"
+  document.getElementById('refresh_status').addEventListener('click', updateServerStatusClear);
+
+  // Update server status immediately when page loads
+  updateServerStatus();
+</script>
