@@ -62,7 +62,7 @@ model = "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B"
 
 # GPT
 base_url = "https://api.openai.com/v1/"
-model = "gpt-4o-mini"
+model = "gpt-6-luna" #"gpt-4o-mini"
 with open("token", 'r') as file:
     token = file.read().strip()
 
@@ -128,15 +128,13 @@ def process_songs(selected_books, topic, receiver_email):
 
         url = f"{base_url}/chat/completions"
         data = {
-        "messages": [
-            {
-            "content": message,
-            "role": "user",
-            "name": "string"
-            },
-        ],
-        "temperature": 0.7,
-        "model": model
+            "model": model,
+            "messages": [{
+                "role": "user",
+                "content": message
+            }],
+            "reasoning_effort": "low",
+            "max_completion_tokens": 100
         }
         response = requests.post(url, headers=headers, json=data)
         result_json = response.json()
@@ -210,6 +208,12 @@ def process_songs(selected_books, topic, receiver_email):
         "model": model
         }
         response = requests.post(url, headers=headers, json=data)
+
+        if response.status_code != 200:
+            print(f"OpenAI API ERROR: HTTP {response.status_code}")
+            print(json.dumps(result_json, indent=2))
+            raise RuntimeError(f"OpenAI API request failed: {result_json}")
+
         result_json = response.json()
         if 'error' in result_json:
             if "Rate limit reached" in result_json['error']['message']:
@@ -430,7 +434,7 @@ def process_songs(selected_books, topic, receiver_email):
 
     # Write to the HTML file
     with open(filename, "w", encoding="utf-8") as f:
-        f.write(html_output.replace("<body>", "<body><p>Receiver: {receiver_email}</p>\n"))
+        f.write(html_output.replace("<body>", f"<body><p>Receiver: {receiver_email}</p>\n"))
 
     # Return the sorted DataFrame as a dictionary
     return df_sorted.to_dict(orient="records")
