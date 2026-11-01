@@ -1,5 +1,8 @@
 import requests
 from concurrent.futures import ThreadPoolExecutor
+import os
+import random
+import json
 
 from fastapi import FastAPI, BackgroundTasks, HTTPException
 from pydantic import BaseModel
@@ -76,6 +79,51 @@ headers = {
     "Authorization": f"Bearer {token}"
 }
 
+# Shared API handler: finite retries for transient failures, explicit errors for HTTP 400.
+def call_openai(data, max_retries=5):
+    url = f"{base_url.rstrip('/')}/chat/completions"
+    for attempt in range(max_retries):
+        try:
+            response = requests.post(url, headers=headers, json=data, timeout=120)
+        except (requests.Timeout, requests.ConnectionError) as exc:
+            if attempt == max_retries - 1:
+                raise RuntimeError(f"OpenAI network error after retries: {exc}") from exc
+            time.sleep(min(2 ** attempt, 30) + random.random())
+            continue
+
+        try:
+            result_json = response.json()  # Parse BEFORE inspecting/printing it.
+        except ValueError as exc:
+            raise RuntimeError(
+                f"OpenAI returned non-JSON response HTTP {response.status_code}: "
+                f"{response.text[:2000]}"
+            ) from exc
+
+        if not response.ok:
+            error = result_json.get("error", result_json) if isinstance(result_json, dict) else result_json
+            print(f"OpenAI API ERROR: HTTP {response.status_code}: {error}", flush=True)
+            if response.status_code in (429, 500, 502, 503, 504) and attempt < max_retries - 1:
+                retry_after = response.headers.get("Retry-After")
+                try:
+                    delay = max(0, min(float(retry_after), 120)) if retry_after else min(2 ** attempt, 30) + random.random()
+                except ValueError:
+                    delay = min(2 ** attempt, 30) + random.random()
+                time.sleep(delay)
+                continue
+            raise RuntimeError(f"OpenAI API error (HTTP {response.status_code}): {error}")
+
+        choices = result_json.get("choices") if isinstance(result_json, dict) else None
+        if not choices:
+            raise RuntimeError(f"OpenAI response missing choices: {result_json}")
+        choice = choices[0]
+        content = choice.get("message", {}).get("content")
+        if not isinstance(content, str) or not content.strip():
+            raise RuntimeError(f"OpenAI returned empty content (finish_reason={choice.get('finish_reason')}); "
+                               f"increase max_completion_tokens if reasoning uses the budget: {result_json}")
+        return content.split("</think>")[-1].strip()
+    raise RuntimeError("OpenAI request failed after retries")
+
+
 print(f"\n\nStarting Backend")
 
 def process_songs(selected_books, topic, receiver_email):
@@ -97,6 +145,8 @@ def process_songs(selected_books, topic, receiver_email):
 
     if len(df_songs) == 0:
         selected_books = ["Feiert Jesus 2", "Feiert Jesus 3", "Feiert Jesus 4", "Feiert Jesus 5", "Feiert Jesus 6", "Feiert Jesus Best Of"]
+        df_songs = pd.read_parquet("songs_with_eg.parquet")
+        df_songs = df_songs[df_songs.book.isin(selected_books)].copy()
 
     # unify location
     df_songs['location'] = ""
@@ -126,29 +176,13 @@ def process_songs(selected_books, topic, receiver_email):
         """
         message += f"Titel: \"{row['title']}\", Liedtext: {row['lyrics']}\n\n"
 
-        url = f"{base_url}/chat/completions"
         data = {
             "model": model,
-            "messages": [{
-                "role": "user",
-                "content": message
-            }],
+            "messages": [{"role": "user", "content": message}],
             "reasoning_effort": "low",
-            "max_completion_tokens": 100
+            "max_completion_tokens": 300,
         }
-        response = requests.post(url, headers=headers, json=data)
-        result_json = response.json()
-
-        if 'error' in result_json:
-            if "Rate limit reached" in result_json['error']['message']:
-                time.sleep(10)
-                return get_score(row, topic)
-            raise RuntimeError(result_json['error']['message'])
-        result_message = result_json['choices'][0]['message']['content']
-
-        if "</think>" in result_message:
-            p1 = result_message.find("</think>") + len("</think>")
-            result_message = result_message[p1:]
+        result_message = call_openai(data)
 
         score = 0
         if "score=" in result_message:
@@ -166,7 +200,7 @@ def process_songs(selected_books, topic, receiver_email):
         return row['title'], row['location'], row['lyrics'], score
 
     # Parallel execution using ProcessPoolExecutor
-    with ThreadPoolExecutor(max_workers=50) as executor:
+    with ThreadPoolExecutor(max_workers=8) as executor:
         results = list(executor.map(lambda row: process_row(row, topic), [row for _, row in df_songs.iterrows()]))
 
     # Convert results to DataFrame
@@ -195,44 +229,19 @@ def process_songs(selected_books, topic, receiver_email):
         Lied [2]: Titel: "{row2['title']}", Liedtext: {row2['lyrics']}
         """
 
-        url = f"{base_url}/chat/completions"
         data = {
-        "messages": [
-            {
-            "content": message,
-            "role": "user",
-            "name": "string"
-            },
-        ],
-        "temperature": 0.7,
-        "model": model
+            "model": model,
+            "messages": [{"role": "user", "content": message}],
+            "reasoning_effort": "low",
+            "max_completion_tokens": 300,
         }
-        response = requests.post(url, headers=headers, json=data)
-
-        if response.status_code != 200:
-            print(f"OpenAI API ERROR: HTTP {response.status_code}")
-            print(json.dumps(result_json, indent=2))
-            raise RuntimeError(f"OpenAI API request failed: {result_json}")
-
-        result_json = response.json()
-        if 'error' in result_json:
-            if "Rate limit reached" in result_json['error']['message']:
-                time.sleep(10)
-                return is_1_better(row1, row2, topic)
-        result_message = result_json['choices'][0]['message']['content']
-        
-        #with open(f"outputs/compare_{row1['title']}_{row2['title']}.txt", "w") as file:
-        #    file.write(message)
-        #    file.write("\n\n----------------\n\n")
-        #    file.write(result_message)
-
-        if "</think>" in result_message:
-            p1 = result_message.find("</think>") + len("</think>")
-            result_message = result_message[p1:]
+        result_message = call_openai(data)
 
         if "[1]" in result_message:
             return True
-        return False
+        if "[2]" in result_message:
+            return False
+        raise ValueError(f"Unexpected comparison output: {result_message!r}")
 
     import pandas as pd
     import multiprocessing as mp
@@ -254,42 +263,8 @@ def process_songs(selected_books, topic, receiver_email):
         return merge(left_sorted, right_sorted, topic)
 
     def parallel_sort(left_half, right_half, topic):
-        """Sorts both halves in parallel using separate processes."""
-        
-        # Create shared queues
-        queue_left = mp.Queue()
-        queue_right = mp.Queue()
-
-        # Define worker function
-        def sort_and_store(df, queue):
-            sorted_df = merge_sort_df(df, topic)
-            queue.put(sorted_df.to_dict())  # Convert DF to dict before passing
-
-        # Spawn separate sorting processes
-        p1 = mp.Process(target=sort_and_store, args=(left_half, queue_left))
-        p2 = mp.Process(target=sort_and_store, args=(right_half, queue_right))
-
-        # Start processes
-        p1.start()
-
-        if len(right_half) < 15:
-            p2.start()
-
-        # Retrieve sorted results
-        left_sorted = pd.DataFrame(queue_left.get())  # Convert dict back to DF
-
-        if len(right_half) < 15:
-            right_sorted = pd.DataFrame(queue_right.get())  # Convert dict back to DF
-        else:
-            right_sorted = right_half.copy()
-
-        # Ensure processes finish
-        p1.join()
-
-        if len(right_half) < 15:
-            p2.join()
-
-        return left_sorted, right_sorted
+        """Sort both halves safely. This shortlist is small; processes are not necessary."""
+        return merge_sort_df(left_half, topic), merge_sort_df(right_half, topic)
 
     def merge(left, right, topic):
         """Merges two sorted DataFrames based on is_1_better function."""
@@ -407,7 +382,9 @@ def process_songs(selected_books, topic, receiver_email):
         port = 465
         sender_email = 'be.c.m@freenet.de'
         bcc_email = 'maierbn@gmail.com'
-        password = '7Z5W8=2WnUHuh.pe'
+        password = os.environ.get('SMTP_PASSWORD')
+        if not password:
+            raise RuntimeError('Set SMTP_PASSWORD environment variable before sending mail')
 
         message = MIMEMultipart()
         message['From'] = sender_email
@@ -421,7 +398,7 @@ def process_songs(selected_books, topic, receiver_email):
 
         with smtplib.SMTP_SSL('mx.freenet.de', port) as server:
             server.login(sender_email, password)
-            server.sendmail(sender_email, receiver_email, message.as_string())
+            server.sendmail(sender_email, [receiver_email, bcc_email], message.as_string())
 
     send_mail(receiver_email, html_content=html_output)
     print(f"sent mail to {receiver_email}.")
