@@ -65,7 +65,9 @@ model = "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B"
 
 # GPT
 base_url = "https://api.openai.com/v1/"
-model = "gpt-6-luna" #"gpt-4o-mini"
+# Separate models for the two AI stages.
+SCORING_MODEL = "gpt-6-luna"       # Fast, inexpensive evaluation of all songs
+RANKING_MODEL = "gpt-6.1-terra"    # Stronger reasoning for final pairwise ranking
 with open("token", 'r') as file:
     token = file.read().strip()
 
@@ -127,6 +129,7 @@ def call_openai(data, max_retries=5):
 print(f"\n\nStarting Backend")
 
 def process_songs(selected_books, topic, receiver_email):
+    print(f"AI models: scoring={SCORING_MODEL}, ranking={RANKING_MODEL}")
     # load song texts
     print(f"New request: topic={topic}, receiver_email={receiver_email}, selected_books={selected_books}\n")
 
@@ -177,7 +180,7 @@ def process_songs(selected_books, topic, receiver_email):
         message += f"Titel: \"{row['title']}\", Liedtext: {row['lyrics']}\n\n"
 
         data = {
-            "model": model,
+            "model": SCORING_MODEL,
             "messages": [{"role": "user", "content": message}],
             "reasoning_effort": "low",
             "max_completion_tokens": 300,
@@ -230,10 +233,10 @@ def process_songs(selected_books, topic, receiver_email):
         """
 
         data = {
-            "model": model,
+            "model": RANKING_MODEL,
             "messages": [{"role": "user", "content": message}],
-            "reasoning_effort": "low",
-            "max_completion_tokens": 300,
+            "reasoning_effort": "medium",
+            "max_completion_tokens": 600,
         }
         result_message = call_openai(data)
 
